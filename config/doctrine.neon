@@ -1,0 +1,24 @@
+﻿extensions:
+    doctrine.dbal: Nettrine\DBAL\DI\DbalExtension
+    doctrine.orm: Nettrine\ORM\DI\OrmExtension
+
+doctrine.dbal:
+    connections:
+        default:
+            driver: pdo_pgsql
+            host: %doctrine.host%
+            user: %doctrine.user%
+            password: %doctrine.password%
+            dbname: %doctrine.dbname%
+
+doctrine.orm:
+    managers:
+        default:
+            lazyNativeObjects: true
+            defaultCache: Symfony\Component\Cache\Adapter\FilesystemAdapter(directory: %tempDir%/cache/doctrine/orm)
+            connection: default
+            mapping:
+                App:
+                    type: attributes
+                    directories: [%appDir%/Model]
+                    namespace: App\Model

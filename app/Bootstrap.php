@@ -6,10 +6,10 @@ use Nette;
 use Nette\Bootstrap\Configurator;
 
 
-class Bootstrap
+readonly class Bootstrap
 {
-	private readonly Configurator $configurator;
-	private readonly string $rootDir;
+	private Configurator $configurator;
+	private string $rootDir;
 
 
 	public function __construct()
@@ -44,5 +44,14 @@ class Bootstrap
 		$configDir = $this->rootDir . '/config';
 		$this->configurator->addConfig($configDir . '/common.neon');
 		$this->configurator->addConfig($configDir . '/services.neon');
+		$this->configurator->addConfig($configDir . '/local.neon');
+
+        $this->configurator->addDynamicParameters([
+            'env' => [
+                'POSTGRES_USER' => getenv('POSTGRES_USER'),
+                'POSTGRES_PASSWORD' => getenv('POSTGRES_PASSWORD'),
+                'POSTGRES_DB' => getenv('POSTGRES_DB'),
+            ],
+        ]);
 	}
 }

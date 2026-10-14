@@ -9,6 +9,9 @@
         - "8080:80"
       environment:
         COMPOSER_HOME: "/tmp/composer"
+        POSTGRES_USER: ${POSTGRES_USER}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+        POSTGRES_DB: ${POSTGRES_DB}
       command: ["php", "-S", "0.0.0.0:80", "-t", "www"]
 
     db:
@@ -17,8 +20,7 @@
       restart: unless-stopped
       environment:
         - POSTGRES_USER=${POSTGRES_USER}
-        - POSTGRES_PASSWORD=${POSTGRES_PW}
+        - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
         - POSTGRES_DB=${POSTGRES_DB}
-        - POSTGRES_HOST_AUTH_METHOD=trust
       ports:
-        - "5432:5432"
+        - "127.0.0.1:5433:5432"

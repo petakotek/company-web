@@ -1,0 +1,6 @@
+﻿parameters:
+    doctrine:
+        host: db
+        user: %env.POSTGRES_USER%
+        password: %env.POSTGRES_PASSWORD%
+        dbname: %env.POSTGRES_DB%
